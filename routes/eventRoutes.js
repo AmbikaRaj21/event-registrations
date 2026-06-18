@@ -4,6 +4,17 @@ import Registration from "../models/registration.js"
 
 const router = express.Router();
 
+/**
+ * @swagger
+ * /events:
+ *   post:
+ *     summary: Create a new event
+ *     tags: [Events]
+ *     responses:
+ *       201:
+ *         description: Event created successfully
+ */
+
 // events post
 
 router.post("/events", async (req, res) => {
@@ -37,6 +48,17 @@ router.post("/events", async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /events:
+ *   get:
+ *     summary: Get all events
+ *     tags: [Events]
+ *     responses:
+ *       200:
+ *         description: List of all events
+ */
+
 // events get
 
 router.get("/events", async (req, res) => {
@@ -63,6 +85,23 @@ router.get("/events", async (req, res) => {
         });
     }
 });
+
+/**
+ * @swagger
+ * /events/{id}/register:
+ *   post:
+ *     summary: Register a user for an event
+ *     tags: [Registrations]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       201:
+ *         description: Registration successful
+ */
 
 // registration put
 
@@ -117,6 +156,23 @@ router.post("/events/:id/register", async (req, res) => {
         });
     }
 });
+
+/**
+ * @swagger
+ * /events/{id}/registrations:
+ *   get:
+ *     summary: Get registrations for a specific event
+ *     tags: [Registrations]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: List of registrations
+ */
 
 // registrations get
 

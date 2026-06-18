@@ -3,6 +3,8 @@ import mongoose from "mongoose"
 import dotenv from "dotenv"
 import cors from "cors"
 import eventRoutes from "./routes/eventRoutes.js"
+import swaggerUi from "swagger-ui-express";
+import swaggerSpec from "./config/swagger.js";
 
 // configure
 dotenv.config();
@@ -16,15 +18,11 @@ app.use(cors())
 
 // root route
 app.get("/", (req, res) => {
-  res.json({
-    message: "Event Registration API is running",
-    endpoints: {
-      createEvent: "/api/events",
-      getEvents: "/api/events",
-      registerUser: "/api/events/:id/register",
-      getRegistrations: "/api/events/:id/registrations",
-    },
-  });
+    res.json({
+        project: "Event Registration API",
+        status: "Running",
+        documentation: "/api-docs",
+    });
 });
 
 // route
@@ -37,6 +35,12 @@ const PORT = process.env.PORT || 5000;
 mongoose.connect(process.env.MONGO_URI)
 .then(() => console.log("MongoDB connected"))
 .catch(err => console.log(err))
+
+app.use(
+    "/api-docs",
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerSpec)
+);
 
 // start server
 app.listen(PORT, () => {
